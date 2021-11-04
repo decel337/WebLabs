@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Anonymous sender</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="form">
+                <form id="form" class="form_body" method="post">
+                    <h1 class="form_title">
+                        Анонимная отправка сообщений на почту
+                    </h1>
+                    <div class="form_item" id="under">
+                        <label for="formName" class="form_label"
+                            >Имя получателя (псевдоним, кличка):</label
+                        >
+                        <input
+                            id="formName"
+                            type="text"
+                            name="name"
+                            class="form_input _nm" />
+                    </div>
+
+                    <div class="form_item">
+                        <label for="formMail" class="form_label"
+                            >Почта получателя*:</label
+                        >
+                        <input
+                            id="formMail"
+                            type="text"
+                            name="mail"
+                            class="form_input _req _mail" />
+                    </div>
+
+                    <div class="form_item">
+                        <label for="formMessage" class="form_label"
+                            >Сообщение*:</label
+                        >
+                        <textarea
+                            id="formMessage"
+                            name="message"
+                            class="form_input _req _mes"></textarea>
+                    </div>
+
+                    <div class="form_item">
+                        <div class="checkbox">
+                            <input
+                                id="formCheck"
+                                type="checkbox"
+                                name="check"
+                                class="checkbox_input _req" />
+                            <label for="formCheck" class="checkbox_label"
+                                ><span
+                                    >Соблюдайте анонимность в соотвествии
+                                    закону. Если вы согласны следовать правилам,
+                                    то подтвердите.</span
+                                ></label
+                            >
+                        </div>
+                    </div>
+                    <button type="submit" class="form_button">
+                        Отправить сообщение
+                    </button>
+                </form>
+            </div>
+        </div>
+        <script src="index.js" defer></script>
+    </body>
+</html>

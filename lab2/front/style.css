@@ -1,0 +1,150 @@
+::before,
+::after{
+    border:0;
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+a{
+    text-decoration: none;
+}
+
+html,
+body{
+    --back-color:#FAEBD7FF;
+    background-color: var(--back-color);
+    font-size: 14px;
+    height: 100%;
+    line-height: 1;
+}
+
+.form{
+    --form-color:#E9967AFF;
+    color: var(--form-color);
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.form_body{
+    position: relative;
+}
+
+.form_body._sending::after{
+    background: rgba(205, 95, 20, 0.9) url("XOsX.gif") center / 200px repeat-x;
+    content: "";
+    height: 100%;
+    left: 0;
+    min-height: 100vh;
+    opacity: 1;
+    position: absolute;
+    top:0;
+    transition: all 0.5s ease 0s;
+    visibility: visible;
+    width: 100%;
+}
+
+.form_title{
+    font-size: 40px;
+    font-weight: 600;
+    margin: 0 0 10px;
+}
+
+.form_item{
+    margin: 0 0 20px;
+}
+
+.form_label{
+    display: block;
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+.form_input{
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+    width: 90%;
+}
+
+.form_input._error{
+    --forminp-color:#F00F;
+    border-color: var(--forminp-color);
+}
+
+textarea.form_input{
+    min-height: 70px;
+    padding: 20px;
+    resize: vertical;
+}
+
+.checkbox_input{
+    display: none;
+}
+
+.checkbox._error .checkbox_label::before{
+    --error-color: #F00F;
+    box-shadow: 0 0 15px var(--error-color);
+}
+
+.checkbox_input:checked+.checkbox_label::after{
+    transform: scale(1);
+}
+
+.checkbox_label{
+    align-items: center;
+    display:inline-flex;
+    font-size: 16px;
+    line-height: 140%;
+    position: relative;
+}
+
+.checkbox_label::before{
+    --back-color3: #FFFF;
+    align-self: flex-start;
+    background-color: var(--back-color3);
+    border-radius: 4px;
+    content: "";
+    flex: 0 0 24px;
+    height: 24px;
+    margin: 0 10px 0 0;
+}
+
+.checkbox_label::after{
+    --back-color2: #FF7F50FF;
+    background-color: var(--back-color2);
+    border-radius: 4px;
+    content: "";
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    top:4px;
+    transform: scale(0);
+    transition: transform 0.5s ease 0s;
+    width: 16px;
+}
+
+.checkbox_label a {
+    --check-color: #FF7F50FF;
+    color: var(--check-color);
+}
+
+.form_button{
+    --back-color4: #DCDCDCFF;
+    align-items: center;
+    background-color: var(--back-color4);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    font-size: 18px;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 2px;
+    min-height: 60px;
+    position: relative;
+    text-transform: uppercase;
+    top: 0;
+    transition: background-color 0.3s ease 0s;
+    width: 100%;
+
+}
