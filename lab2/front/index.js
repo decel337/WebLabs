@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (error === 0) {
             form.classList.add('_sending');
-            const response = await fetch('http://localhost:3001/sendMes', {
+            const response = await fetch('https://us-central1-lab2-ece27.cloudfunctions.net/api/sendMes', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {

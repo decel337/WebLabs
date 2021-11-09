@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mailer = require('./nodemailer');
@@ -14,7 +15,7 @@ app.use('/style.css', express.static(__dirname + '/style.css'));
 app.use(express.json());
 
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     next();
@@ -43,3 +44,5 @@ app.post('/sendMes', (req, res) => {
 });
 
 app.listen(PORT, () => console.log('okey'));
+
+exports.api = functions.https.onRequest(app);
