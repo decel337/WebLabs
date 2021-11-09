@@ -1,22 +1,23 @@
 const nodemailer = require('nodemailer');
+const functions = require('firebase-functions');
 
-const mailer = (name, message) => {
+const mailer = message => {
     const transport = nodemailer.createTransport(
         {
-            host: 'smtp.gmail.com',
-            port: 587,
+            host: functions.config().s.host,
+            port: functions.config().s.port,
             auth: {
-                user: 'left331@gmail.com',
-                pass: '123under123',
+                user: functions.config().s.mail,
+                pass: functions.config().s.pass,
             },
         },
         {
-            from: `Anonymous <left331@gmail.com>`,
+            from: 'Anonymous <' + functions.config().s.mail + '>',
         },
     );
     transport.sendMail(message, (err, info) => {
-        if (err) return console.log(err);
-        console.log('Sent:' + info);
+        if (err) return err;
+        return info;
     });
 };
 

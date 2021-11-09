@@ -1,48 +1,50 @@
 const functions = require('firebase-functions');
-const express = require('express');
-const rateLimit = require('express-rate-limit');
 const mailer = require('./nodemailer');
 const sanitizeHtml = require('sanitize-html');
-const app = express();
-const PORT = 3001;
-const apiLimiter = rateLimit({
-    windowMs: 60 * 1000,
-    max: 2,
-    skip: req => req.method === 'OPTIONS',
-});
 
-app.use('/style.css', express.static(__dirname + '/style.css'));
-app.use(express.json());
+const rateLimit = {
+    RPS_LIMIT: 3,
+    TIME_FRAME: 30,
+    IP_DATA: new Map(),
+};
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    next();
-});
+exports.sendMes = functions.https.onRequest(async (req, res) => {
+    const currentIP = req.headers['fastly-client-ip'];
+    let infoIP = {};
+    const currentTime = new Date();
 
-app.use('/sendMes', apiLimiter);
+    infoIP = rateLimit.IP_DATA.get(currentIP);
 
-app.post('/sendMes', (req, res) => {
-    sanitizeHtml(req.body.name);
-    sanitizeHtml(req.body.mail);
-    sanitizeHtml(req.body.message);
+    if (!infoIP) {
+        infoIP = { count: 0, time: currentTime };
+    } else if (
+        infoIP.count &&
+        (infoIP.count + 1 > rateLimit.RPS_LIMIT ||
+            currentTime - infoIP.time <= rateLimit.TIME_FRAME * 1000)
+    ) {
+        res.statusCode = 429;
+        res.send('Too many request. Please, wait.');
+        return;
+    }
 
-    if (req.body.mail !== '' && req.body.message !== '') {
+    infoIP.count += 1;
+    infoIP.time = new Date();
+    rateLimit.IP_DATA.set(currentIP, infoIP);
+
+    const name = sanitizeHtml(req.body.name);
+    const mail = sanitizeHtml(req.body.mail);
+    const mes = sanitizeHtml(req.body.message);
+
+    if (mail !== '' && mes !== '') {
         const message = {
-            to: req.body.mail,
+            to: mail,
             subject: 'Anon message',
-            text: 'Hello, ' + req.body.name + '\n' + req.body.message,
+            text: 'Hello, ' + name + '\n' + mes,
         };
-
-        mailer(req.body.name, message);
+        mailer(message);
         res.send('Message sent');
     } else {
         res.statusCode = 400;
-        res.send('Form validation error!');
+        res.send('Error');
     }
 });
-
-app.listen(PORT, () => console.log('okey'));
-
-exports.api = functions.https.onRequest(app);
