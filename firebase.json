@@ -15,6 +15,6 @@
     },
     "functions": {
         "source": "lab2/functions",
-        "runtime": "nodejs14"
+        "runtime": "nodejs16"
     }
 }

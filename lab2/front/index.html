@@ -3,17 +3,17 @@
     <head>
         <meta charset="UTF-8" />
         <title>Anonymous sender</title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
         <div class="wrapper">
             <div class="form">
                 <form id="form" class="form_body" method="post">
-                    <div id="alert" class="alert _alert">
+                    <div id="alert" class="alert">
                         <span
                             id="clsbtn"
                             class="closebtn"
-                            onclick="this.parentElement.style.display='none';"
+                            onclick="this.parentElement.classList.add('_hide');"
                             >&times;</span
                         >
                         <label id="text"></label>

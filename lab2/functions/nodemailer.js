@@ -2,17 +2,18 @@ const nodemailer = require('nodemailer');
 const functions = require('firebase-functions');
 
 const mailer = message => {
+    const configSecret = functions.config()?.s;
     const transport = nodemailer.createTransport(
         {
-            host: functions.config().s.host,
-            port: functions.config().s.port,
+            host: configSecret?.host,
+            port: configSecret?.port,
             auth: {
-                user: functions.config().s.mail,
-                pass: functions.config().s.pass,
+                user: configSecret?.mail,
+                pass: configSecret?.pass,
             },
         },
         {
-            from: 'Anonymous <' + functions.config().s.mail + '>',
+            from: 'Anonymous <' + configSecret?.mail + '>',
         },
     );
     transport.sendMail(message, (err, info) => {

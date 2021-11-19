@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const error = formValidate();
 
         const data = {
-            name: document.querySelector('._nm').value,
-            mail: document.querySelector('._mail').value,
-            message: document.querySelector('._mes').value,
+            name: form.elements[0].value,
+            mail: form.elements[1].value,
+            message: form.elements[2].value,
         };
 
         if (error === 0) {
-            form.classList.add('_sending');
+            form.parentElement.classList.add('_sending');
             const response = await fetch('/sendMes', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -22,18 +22,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 },
             });
-            form.classList.remove('_sending');
+            form.parentElement.classList.remove('_sending');
             clearAlert();
+            let text;
             const alert = document.getElementById('alert');
-            const text = await response.text();
             if (response.ok) {
+                text = 'Message Sent';
                 alertText(text);
                 alert.classList.add('_okey');
                 form.reset();
+                return;
+            } else if (response.status === 429) {
+                text = 'Too may request. Please. wait';
             } else {
-                alertText(text);
-                alert.classList.add('_error');
+                text = 'Unknown error. Message not send.';
             }
+            alertText(text);
+            alert.classList.add('_error');
         }
     }
 
@@ -79,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function clearAlert() {
         const alert = document.getElementById('alert');
-        alert.style.display = 'block';
+        alert.classList.remove('_hide');
         alert.classList.remove('_okey');
         alert.classList.remove('_error');
     }

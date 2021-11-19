@@ -6,22 +6,31 @@
     padding: 0;
 }
 
+* {
+    --background-color: #faebd7ff;
+    --formtext-color: #e9967aff;
+    --error-color: #f44336ff;
+    --okey-color: #90ee90ff;
+    --textandbtn-color: #fff;
+    --btnhover-color: #000f;
+    --load-color: #cd5f14e5;
+    --btn-color: #dcdcdcff;
+    --checkbox-color: #ff7f50ff;
+}
+
 a {
     text-decoration: none;
 }
 
 html,
 body {
-    --back-color: #faebd7ff;
-    background-color: var(--back-color);
+    background-color: var(--background-color);
     font-size: 14px;
-    height: 100%;
     line-height: 1;
 }
 
 .form {
-    --form-color: #e9967aff;
-    color: var(--form-color);
+    color: var(--formtext-color);
     margin: 0 auto;
     max-width: 800px;
 }
@@ -34,29 +43,28 @@ body {
     visibility: hidden;
 }
 
+.alert._hide {
+    display: none;
+}
+
 .alert._error {
-    --back-color: #f44336ff;
-    --textcolor: #fff;
-    background-color: var(--back-color);
-    color: var(--textcolor);
+    background-color: var(--error-color);
+    color: var(--textandbtn-color);
     margin-bottom: 15px;
     padding: 20px;
     visibility: visible;
 }
 
 .alert._okey {
-    --back-color: #90ee90ff;
-    --text-color: #fff;
-    background-color: var(--back-color);
-    color: var(--text-color);
+    background-color: var(--okey-color);
+    color: var(--textandbtn-color);
     margin-bottom: 15px;
     padding: 20px;
     visibility: visible;
 }
 
 .closebtn {
-    --btn-color: #ffff;
-    color: var(--btn-color);
+    color: var(--textandbtn-color);
     cursor: pointer;
     float: right;
     font-size: 22px;
@@ -67,12 +75,11 @@ body {
 }
 
 .closebtn:hover {
-    --btn-color: #000f;
-    color: var(--btn-color);
+    color: var(--btnhover-color);
 }
 
-.form_body._sending::after {
-    background: rgba(205, 95, 20, 0.9) url('XOsX.gif') center / 200px repeat-x;
+.form._sending::after {
+    background: var(--load-color) url('XOsX.gif') center / 200px repeat-x;
     content: '';
     height: 100%;
     left: 0;
@@ -109,8 +116,7 @@ body {
 }
 
 .form_input._error {
-    --forminp-color: #f00f;
-    border-color: var(--forminp-color);
+    border-color: var(--error-color);
 }
 
 .form_input._mes {
@@ -124,7 +130,6 @@ body {
 }
 
 .checkbox._error .checkbox_label::before {
-    --error-color: #f00f;
     box-shadow: 0 0 15px var(--error-color);
 }
 
@@ -141,9 +146,8 @@ body {
 }
 
 .checkbox_label::before {
-    --back-color3: #ffff;
     align-self: flex-start;
-    background-color: var(--back-color3);
+    background-color: var(--textandbtn-color);
     border-radius: 4px;
     content: '';
     flex: 0 0 24px;
@@ -152,8 +156,7 @@ body {
 }
 
 .checkbox_label::after {
-    --back-color2: #ff7f50ff;
-    background-color: var(--back-color2);
+    background-color: var(--checkbox-color);
     border-radius: 4px;
     content: '';
     height: 16px;
@@ -166,14 +169,12 @@ body {
 }
 
 .checkbox_label a {
-    --check-color: #ff7f50ff;
-    color: var(--check-color);
+    color: var(--checkbox-color);
 }
 
 .form_button {
-    --back-color4: #dcdcdcff;
     align-items: center;
-    background-color: var(--back-color4);
+    background-color: var(--btn-color);
     border-radius: 20px;
     cursor: pointer;
     display: flex;
