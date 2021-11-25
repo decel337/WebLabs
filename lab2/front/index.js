@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const error = formValidate();
 
-        const data = {
-            name: form.elements[0].value,
-            mail: form.elements[1].value,
-            message: form.elements[2].value,
-        };
+        const data = {};
+
+        for (const element of form.elements) {
+            data[element.name] = element.value;
+        }
 
         if (error === 0) {
             form.parentElement.classList.add('_sending');
@@ -84,8 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function clearAlert() {
         const alert = document.getElementById('alert');
-        alert.classList.remove('_hide');
-        alert.classList.remove('_okey');
-        alert.classList.remove('_error');
+        alert.className = 'alert';
     }
 });
