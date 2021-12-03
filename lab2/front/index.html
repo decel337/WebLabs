@@ -8,49 +8,33 @@
     <body>
         <div class="wrapper">
             <div class="form">
-                <form id="form" class="form_body" method="post">
+                <form id="form" class="form_body">
                     <div id="alert" class="alert">
                         <span
-                            id="clsbtn"
                             class="closebtn"
                             onclick="this.parentElement.classList.add('_hide');"
                             >&times;</span
                         >
-                        <label id="text"></label>
+                        <label></label>
                     </div>
-                    <h1 class="form_title">
-                        Анонимная отправка сообщений на почту
-                    </h1>
-                    <div class="form_item" id="under">
-                        <label for="formName" class="form_label"
+                    <h1>Анонимная отправка сообщений на почту</h1>
+                    <div class="form_item">
+                        <label class="form_label"
                             >Имя получателя (псевдоним, кличка):</label
                         >
-                        <input
-                            id="formName"
-                            type="text"
-                            name="name"
-                            class="form_input _nm" />
+                        <input name="name" class="form_input" />
                     </div>
 
                     <div class="form_item">
-                        <label for="formMail" class="form_label"
-                            >Почта получателя*:</label
-                        >
-                        <input
-                            id="formMail"
-                            type="text"
-                            name="mail"
-                            class="form_input _req _mail" />
+                        <label class="form_label">Почта получателя*:</label>
+                        <input name="mail" class="form_input _req" />
                     </div>
 
                     <div class="form_item">
-                        <label for="formMessage" class="form_label"
-                            >Сообщение*:</label
-                        >
+                        <label class="form_label">Сообщение*:</label>
                         <textarea
-                            id="formMessage"
                             name="message"
-                            class="form_input _req _mes"></textarea>
+                            class="form_input _req"></textarea>
                     </div>
 
                     <div class="form_item">
@@ -58,7 +42,6 @@
                             <input
                                 id="formCheck"
                                 type="checkbox"
-                                name="check"
                                 class="checkbox_input _req" />
                             <label for="formCheck" class="checkbox_label"
                                 ><span

@@ -25,21 +25,22 @@ exports.sendMes = functions.https.onRequest(async (req, res) => {
         res.status(429).send();
     }
 
-    infoIP.count += 1;
+    infoIP.count++;
     infoIP.time = new Date();
     rateLimit.IP_DATA.set(currentIP, infoIP);
 
     const cleanMes = sanitizeHtml(req.body.message);
 
-    if (req.body.mail !== '' && cleanMes !== '') {
-        const message = {
-            to: req.body.mail,
-            subject: 'Anon message',
-            text: 'Hello, ' + req.body.name + '\n' + cleanMes,
-        };
+    const message = {
+        to: req.body.mail,
+        subject: 'Anon message',
+        text: 'Hello, ' + req.body.name + '\n' + cleanMes,
+    };
+    try {
         mailer(message);
-    } else {
+    } catch (e) {
         res.status(400);
     }
+
     res.send();
 });

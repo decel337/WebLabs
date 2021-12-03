@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form');
     form.addEventListener('submit', formSend);
+    const alert = document.getElementById('alert');
 
     async function formSend(e) {
         e.preventDefault();
@@ -13,32 +14,33 @@ document.addEventListener('DOMContentLoaded', () => {
             data[element.name] = element.value;
         }
 
-        if (error === 0) {
+        if (!error) {
+            clearAlert();
+            let text;
             form.parentElement.classList.add('_sending');
-            const response = await fetch('/sendMes', {
+            await fetch('/sendMes', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
-            form.parentElement.classList.remove('_sending');
-            clearAlert();
-            let text;
-            const alert = document.getElementById('alert');
-            if (response.ok) {
-                text = 'Message Sent';
+            }).then(response => {
+                form.parentElement.classList.remove('_sending');
+                if (response.status === 200) {
+                    text = 'Message Sent';
+                    alertText(text);
+                    alert.classList.add('_okey');
+                    form.reset();
+                    return;
+                }
+                if (response.status === 429) {
+                    text = 'Too may request. Please. wait';
+                } else {
+                    text = 'Unknown error. Message not send.';
+                }
                 alertText(text);
-                alert.classList.add('_okey');
-                form.reset();
-                return;
-            } else if (response.status === 429) {
-                text = 'Too may request. Please. wait';
-            } else {
-                text = 'Unknown error. Message not send.';
-            }
-            alertText(text);
-            alert.classList.add('_error');
+                alert.classList.add('_error');
+            });
         }
     }
 
@@ -46,16 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let error = 0;
         const formReq = document.querySelectorAll('._req');
 
-        for (let i = 0; i < formReq.length; i++) {
-            const input = formReq[i];
+        for (const input of formReq) {
             formRemoveError(input);
-
-            if (input.classList.contains('_mail')) {
-                if (!mailTest(input)) {
-                    formAddError(input);
-                    error++;
-                }
-            } else if (
+            if (
+                (input.classList.contains('_mail') && !mailTest(input)) ||
                 (input.getAttribute('type') === 'checkbox' &&
                     input.checked === false) ||
                 input.value === ''
@@ -79,11 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return reg.test(input.value);
     }
     function alertText(str) {
-        const labelText = document.getElementById('text');
-        labelText.innerHTML = str;
+        const labelText = document.getElementById('alert').children[1];
+        labelText.textContent = str;
     }
     function clearAlert() {
-        const alert = document.getElementById('alert');
         alert.className = 'alert';
     }
 });

@@ -16,8 +16,11 @@ const mailer = message => {
             from: 'Anonymous <' + configSecret?.mail + '>',
         },
     );
+    if (!message) {
+        throw message;
+    }
     transport.sendMail(message, (err, info) => {
-        if (err) return err;
+        if (err) throw err;
         return info;
     });
 };
