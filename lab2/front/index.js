@@ -1,24 +1,23 @@
+const form = document.getElementById('form');
+const alert = document.getElementById('alert');
+const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form');
     form.addEventListener('submit', formSend);
-    const alert = document.getElementById('alert');
 
     async function formSend(e) {
         e.preventDefault();
 
         const error = formValidate();
 
-        const data = {};
-
-        for (const element of form.elements) {
-            data[element.name] = element.value;
-        }
+        const data = form.elements.map(el => {
+            data[el.name] = el.value;
+        });
 
         if (!error) {
             clearAlert();
             let text;
             form.parentElement.classList.add('_sending');
-            await fetch('/sendMes', {
+            fetch('/sendMes', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
@@ -71,11 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
         input.classList.remove('_error');
     }
     function mailTest(input) {
-        const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
         return reg.test(input.value);
     }
     function alertText(str) {
-        const labelText = document.getElementById('alert').children[1];
+        const labelText = document.getElementById('alert')?.children[1];
         labelText.textContent = str;
     }
     function clearAlert() {

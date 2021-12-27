@@ -20,7 +20,9 @@ const mailer = message => {
         throw message;
     }
     transport.sendMail(message, (err, info) => {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
         return info;
     });
 };
