@@ -1,0 +1,191 @@
+::before,
+::after {
+    border: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    --background-color: #faebd7ff;
+    --formtext-color: #e9967aff;
+    --error-color: #f44336ff;
+    --okey-color: #90ee90ff;
+    --textandbtn-color: #fff;
+    --btnhover-color: #000f;
+    --load-color: #cd5f14e5;
+    --btn-color: #dcdcdcff;
+    --checkbox-color: #ff7f50ff;
+}
+
+a {
+    text-decoration: none;
+}
+
+html,
+body {
+    background-color: var(--background-color);
+    font-size: 14px;
+    line-height: 1;
+}
+
+.form {
+    color: var(--formtext-color);
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.form_body {
+    position: relative;
+}
+
+.alert {
+    visibility: hidden;
+}
+
+.alert._hide {
+    display: none;
+}
+
+.alert._error {
+    background-color: var(--error-color);
+    color: var(--textandbtn-color);
+    margin-bottom: 15px;
+    padding: 20px;
+    visibility: visible;
+}
+
+.alert._okey {
+    background-color: var(--okey-color);
+    color: var(--textandbtn-color);
+    margin-bottom: 15px;
+    padding: 20px;
+    visibility: visible;
+}
+
+.closebtn {
+    color: var(--textandbtn-color);
+    cursor: pointer;
+    float: right;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: var(--btnhover-color);
+}
+
+.form._sending::after {
+    background: var(--load-color) url('XOsX.gif') center / 200px repeat-x;
+    content: '';
+    height: 100%;
+    left: 0;
+    min-height: 100vh;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    transition: all 0.5s ease 0s;
+    visibility: visible;
+    width: 100%;
+}
+
+.h1 {
+    font-size: 40px;
+    font-weight: 600;
+    margin: 0 0 10px;
+}
+
+.form_item {
+    margin: 0 0 20px;
+}
+
+.form_label {
+    display: block;
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+.form_input {
+    border-radius: 5px;
+    height: 50px;
+    padding: 0 20px;
+    width: 90%;
+}
+
+.form_input._error {
+    border-color: var(--error-color);
+}
+
+.form_input[name='message'] {
+    min-height: 70px;
+    padding: 20px;
+    resize: vertical;
+}
+
+.checkbox_input {
+    display: none;
+}
+
+.checkbox._error .checkbox_label::before {
+    box-shadow: 0 0 15px var(--error-color);
+}
+
+.checkbox_input:checked + .checkbox_label::after {
+    transform: scale(1);
+}
+
+.checkbox_label {
+    align-items: center;
+    display: inline-flex;
+    font-size: 16px;
+    line-height: 140%;
+    position: relative;
+}
+
+.checkbox_label::before {
+    align-self: flex-start;
+    background-color: var(--textandbtn-color);
+    border-radius: 4px;
+    content: '';
+    flex: 0 0 24px;
+    height: 24px;
+    margin: 0 10px 0 0;
+}
+
+.checkbox_label::after {
+    background-color: var(--checkbox-color);
+    border-radius: 4px;
+    content: '';
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    transform: scale(0);
+    transition: transform 0.5s ease 0s;
+    width: 16px;
+}
+
+.checkbox_label a {
+    color: var(--checkbox-color);
+}
+
+.form_button {
+    align-items: center;
+    background-color: var(--btn-color);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    font-size: 18px;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 2px;
+    min-height: 60px;
+    position: relative;
+    text-transform: uppercase;
+    top: 0;
+    transition: background-color 0.3s ease 0s;
+    width: 100%;
+}

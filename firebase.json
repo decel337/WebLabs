@@ -1,0 +1,20 @@
+{
+    "hosting": {
+        "public": "lab2/front",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "rewrites": [
+            {
+                "source": "/",
+                "destination": "/index.html"
+            },
+            {
+                "source": "/sendMes",
+                "function": "sendMes"
+            }
+        ]
+    },
+    "functions": {
+        "source": "lab2/functions",
+        "runtime": "nodejs16"
+    }
+}
